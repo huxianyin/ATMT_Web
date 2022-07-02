@@ -17,7 +17,6 @@ function generate_phase_name(isTrial,taskType){
 
 function generate_rule(isTrial,taskType){
   const phase = generate_phase_name(isTrial,taskType);
-  console.log(phase);
   return RULE_TEXT[phase];
 }
 
@@ -48,7 +47,7 @@ const TaskPage = (props) => {
           task_r={props.task_r} 
           phase={phase}
           onClearHistory={props.onClearHistory}
-          onSubmitResult={props.onSubmitResult}
+          onUpdateResult={props.onUpdateResult}
           nextPhase={props.nextPhase}
           />
         

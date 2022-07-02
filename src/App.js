@@ -25,10 +25,12 @@ class App extends Component {
                 step: defaultSettings.step,
                 task_r: defaultSettings.task_r,
                 exp_name: defaultSettings.exp_name
-            }
+            },
+            results:Array(Object),
         };
 
     }
+
     reset() {
         if (window.confirm('リセットすると、今までの成績は無くなります。本当にリセットしますか？')) {
             window.history.pushState(null, null, '/');
@@ -39,7 +41,7 @@ class App extends Component {
 
 
     handleParameterChange(name, v) {
-        let { phase,setting } = this.state;
+        const setting = this.state.setting;
         if (name === "task_r" || name === "exp_name") {
             setting[name] = v;
         } else {
@@ -71,10 +73,13 @@ class App extends Component {
     }
 
     handleClearHistory(){}
-    handleSubmitResult(){}
+
+    onUpdateResult(data)
+    {
+        this.state.results.push(data);
+    }
 
     generage_page(isTrial,taskType,nextPhase){
-        const phase = (isTrial?"trial":"part" )+ taskType;
         return ( <TaskPage
             isTrial = {isTrial} 
             taskType = {taskType} 
@@ -85,7 +90,7 @@ class App extends Component {
             step = { this.state.setting.step }
             task_r = { this.state.setting.task_r }
             onClearHistory = { this.handleClearHistory.bind(this) }
-            onSubmitResult = { this.handleSubmitResult.bind(this) }
+            onUpdateResult = { this.onUpdateResult.bind(this) }
             />
         );
     }

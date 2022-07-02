@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import {  Link } from 'react-router-dom';
-
 import '../css/tmtStyle.css';
 import CompleteBar from './CompleteBar';
 
+//move to app js because they are global settings!!
 const save_dir = "./results/";
 const trial_num = 3;
 const trial_step= 2;
+const alphabet = "jp";
+
 const jp = ["あ","い","う","え","お","か","き","く","け","こ","さ","し","す","せ","そ","た","ち","つ","て","と","な","に","ぬ","ね","の","は","ひ","ふ","へ","ほ","ま","み","む","め","も","や","ゆ","よ","ら","り","る","れ","ろ","わ","を","ん"];
 const en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-// a stateless component
-const alphabet = "jp";
+
 
 class TrailMakingTest extends Component {
     constructor(props){
@@ -24,12 +25,8 @@ class TrailMakingTest extends Component {
           posNumber:[],
           posBlanck:[],
           nextAnswer : 0,
-          startTime : 0,
           lastTime : 0,
-          results : [],
           fname:  save_dir + "result_" + props.phase + "_"+ props.exp_name +".csv",
-          onSubmitResult:props.onSubmitResult,
-          onClearHistory:props.onClearHistory,
           setting : {
             step: props.phase.includes('trial')?trial_step:props.step,
             exp_name:props.exp_name,
@@ -40,26 +37,6 @@ class TrailMakingTest extends Component {
         };
       }
 
-    json2csv(json) {
-        var header = Object.keys(json[0]).join(',') + "\n";
-    
-        var body = json.map(function(d){
-            return Object.keys(d).map(function(key) {
-                return d[key];
-            }).join(',');
-        }).join("\n");
-    
-        return header + body;
-    }
-    
-    SaveResult(data)
-    {
-        //if (!this.state.setting.phase.includes('trail'))
-        //{
-        //    this.state.onSubmitResult(this.state.fname,data);
-        //}
-        this.state.onSubmitResult(this.state.fname,data);
-    }
 
     shuffle(array) {
         var currentIndex = array.length, temporaryValue, randomIndex;
@@ -205,24 +182,25 @@ class TrailMakingTest extends Component {
         {
             this.state.finished = true;
             this.setState({finished:true});
-            this.SaveResult(this.json2csv(this.state.results));
         }
     }
 
 
     handleMarkClick(clickEvent){
-        var item_id = clickEvent.target.id;
+        const item_id = clickEvent.target.id;
         if(item_id == this.state.nextAnswer)
         {
             this.state.nextAnswer = this.state.nextAnswer+1;
-            //recored time
+            //recored data
             var nowDate = new Date();
-            var now_time = (nowDate.getTime() - this.state.startTime)/1000;
+            const timestamp = nowDate.getTime()/1000;
+            const rt = timestamp-this.state.lastTime;
             nowDate = null;
-            this.state.results.push({"item_id":item_id,"time":now_time-this.state.lastTime});
-            this.state.lastTime = now_time;
+            this.props.onUpdateResult({"item_id":item_id,"timestamp":timestamp,"reaction_time":rt,"phase":this.props.phase});
+
+            this.state.lastTime = timestamp;
             this.state.completeBar.setCompleteNumber(this.state.nextAnswer);
-            var newTable = this.generateMarks(this.state.setting.phase,this.state.nextAnswer,this.state.setting.task_r);
+            const newTable = this.generateMarks(this.state.setting.phase,this.state.nextAnswer,this.state.setting.task_r);
             this.setState({table:newTable});
         }
         else
@@ -239,7 +217,6 @@ class TrailMakingTest extends Component {
     {
         this.state.nextAnswer = 0;
         this.state.lastTime = 0;
-        this.state.startTime = 0;
         this.state.started = false;
         if(alphabet === "jp")
         {
@@ -257,7 +234,7 @@ class TrailMakingTest extends Component {
 
         this.setState({table:this.generateMarks(this.state.setting.phase,this.state.nextAnswer,true)});
 
-        this.state.onClearHistory(this.state.fname);
+        this.props.onClearHistory(this.state.fname);
     }
 
     render(){
@@ -272,9 +249,8 @@ class TrailMakingTest extends Component {
                 this.state.started = true;this.setState({started:true});
                 this.state.completeBar.onStart();
                 var startDate = new Date();
-                this.state.startTime = startDate.getTime();
-                startDate = null;
-                this.SaveResult("start_time,"+this.state.startTime+'\n');        
+                this.state.lastTime = startDate.getTime()/1000;
+                startDate = null;    
                 }}>
                 <span>準備はいいですか？</span>
             </button>
