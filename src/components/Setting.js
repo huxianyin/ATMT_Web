@@ -28,7 +28,7 @@ const Setting = (props) => {
 
           <div className="sub-container">
               <div className="param-input">
-                    <input className="input-area" type="text" pattern="[0-9]*-[0-9]*" value={props.exp_name} onChange={
+                    <input className="input-area" type="text" pattern="[0-9]*-[0-9]*" defaultValue={props.exp_name} onChange={
                       (v) =>{
                       props.handleParamChange("exp_name",v.target.value);
                       }
@@ -36,7 +36,7 @@ const Setting = (props) => {
               </div>
               
               <div className="param-input">
-                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_num} max={max_num} value={props.num} onChange={
+                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_num} max={max_num} defaultValue={props.num} onChange={
                       (v) =>{
                         var value = v.target.value > max_num? max_num : v.target.value;
                         value = value < min_num ? min_num : value;
@@ -46,7 +46,7 @@ const Setting = (props) => {
               </div>
 
               <div className="param-input">
-                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_step} max={max_step} value={props.step} onChange={
+                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_step} max={max_step} defaultValue={props.step} onChange={
                       (v) =>{
                         var value = v.target.value > max_step? max_step : v.target.value;
                         value = value < min_step ? min_step : value;
@@ -57,7 +57,7 @@ const Setting = (props) => {
 
               <div className="param-input">
                 <label className="myCheckbox">
-                    <input type="checkbox" checked={props.task_r} onChange={
+                    <input type="checkbox" defaultChecked={props.task_r} onChange={
                       (v) =>{
                         props.handleParamChange("task_r",v.target.checked);
                       }}/>

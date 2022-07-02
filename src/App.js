@@ -97,7 +97,7 @@ class App extends Component {
                 step = { this.state.setting.step }
                 task_r = { this.state.setting.task_r }
                 exp_name = { this.state.setting.exp_name }
-                nextPhase = "trailA"
+                nextPhase = "trialA"
                 handleParamChange = { this.handleParameterChange.bind(this) }
                 Reset = { this.reset }
                 />
@@ -122,9 +122,9 @@ class App extends Component {
                 <BrowserRouter>
                     <Routes>
                         <Route exact path = "/" element = { <MySettingPage />}/> 
-                        <Route path = 'trailA' element = { <TrailAPage /> }/> 
+                        <Route path = 'trialA' element = { <TrailAPage /> }/> 
                         <Route path = 'partA' element = { <PartAPage />}/> 
-                        <Route path = 'trailB' element = { <TrailBPage />}/> 
+                        <Route path = 'trialB' element = { <TrailBPage />}/> 
                         <Route path = 'partB' element = { <PartBPage />}/> 
                         <Route path = 'report' element = { <ReportPage />}/> 
                     </Routes>
