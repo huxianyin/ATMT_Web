@@ -1,19 +1,14 @@
 import React from 'react';
+import {  Link } from 'react-router-dom';
+
 import '../css/Setting.css';
-// a stateless component
-const defaultParas = {
-  num : 5,
-  step : 10,
-  task_r : false,
-  exp_name : '1-1'
-}
+
 
 const Setting = (props) => {
     const min_num = 1;
     const min_step = 1;
     const max_step = 20;
     const max_num = 20;
-    let {num,step,exp_name, task_r} = props;
     return (
       <div className="Setting">
         <header>
@@ -25,15 +20,15 @@ const Setting = (props) => {
         <div className="input-panel" >
 
           <div className="sub-container">
-            <div className="param-label">{"Experiment Name (n - m)"}</div>
-            <div className="param-label">{"Num "+"("+min_num+"~"+max_num+")"}</div>
-            <div className="param-label">{"Step "+"("+min_step+"~"+max_step+")"}</div>
+            <div className="param-label">{"Experiment Name"}</div>
+            <div className="param-label">{"Num "+"("+min_num+"-"+max_num+")"}</div>
+            <div className="param-label">{"Step "+"("+min_step+"-"+max_step+")"}</div>
             <div className="param-label">Task-R</div>
           </div>
 
           <div className="sub-container">
               <div className="param-input">
-                    <input className="input-area" type="text" pattern="[0-9]*-[0-9]*" value={exp_name} defaultValue={defaultParas.exp_name} onChange={
+                    <input className="input-area" type="text" pattern="[0-9]*-[0-9]*" value={props.exp_name} onChange={
                       (v) =>{
                       props.handleParamChange("exp_name",v.target.value);
                       }
@@ -41,7 +36,7 @@ const Setting = (props) => {
               </div>
               
               <div className="param-input">
-                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_num} max={max_num} value={num} defaultValue={defaultParas.num} onChange={
+                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_num} max={max_num} value={props.num} onChange={
                       (v) =>{
                         var value = v.target.value > max_num? max_num : v.target.value;
                         value = value < min_num ? min_num : value;
@@ -51,7 +46,7 @@ const Setting = (props) => {
               </div>
 
               <div className="param-input">
-                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_step} max={max_step} value={step} defaultValue={defaultParas.step} onChange={
+                    <input className="input-area" type="number" pattern="[0-9]*" step="1" min={min_step} max={max_step} value={props.step} onChange={
                       (v) =>{
                         var value = v.target.value > max_step? max_step : v.target.value;
                         value = value < min_step ? min_step : value;
@@ -62,7 +57,7 @@ const Setting = (props) => {
 
               <div className="param-input">
                 <label className="myCheckbox">
-                    <input type="checkbox" checked={task_r} defaultValue={defaultParas.task_r} onChange={
+                    <input type="checkbox" checked={props.task_r} onChange={
                       (v) =>{
                         props.handleParamChange("task_r",v.target.checked);
                       }}/>
@@ -71,7 +66,9 @@ const Setting = (props) => {
               </div>
           </div>
         </div>
-        <button className="my-btn" onClick={()=>{props.handleNext();}}>Next</button>
+        <button className="my-btn" >
+         <Link to={props.nextPhase}>Next</Link>
+         </button>
         
       </div>
     );

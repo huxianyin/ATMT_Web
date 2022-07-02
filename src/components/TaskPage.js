@@ -49,7 +49,7 @@ const TaskPage = (props) => {
           phase={phase}
           onClearHistory={props.onClearHistory}
           onSubmitResult={props.onSubmitResult}
-          onClickNext={props.handleNext}
+          nextPhase={props.nextPhase}
           />
         
       </div>

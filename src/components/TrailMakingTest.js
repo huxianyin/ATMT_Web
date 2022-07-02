@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {  Link } from 'react-router-dom';
+
 import '../css/tmtStyle.css';
 import CompleteBar from './CompleteBar';
 
@@ -7,12 +9,6 @@ const jp = ["あ","い","う","え","お","か","き","く","け","こ","さ","�
 const en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 // a stateless component
 const alphabet = "jp";
-const showText = {
-    trailA : "Trail-A",
-    trailB : "Trail-B",
-    partA : "Part-A",
-    partB : "Part-B"
-  }
 
 class TrailMakingTest extends Component {
     constructor(props){
@@ -283,8 +279,8 @@ class TrailMakingTest extends Component {
         )
 
         var showedNextButton = (
-            <button className="nextPanel" onClick={this.props.onClickNext}>
-                NEXT
+            <button className="nextPanel">
+                <Link to={this.props.nextPhase}>NEXT</Link>
             </button>
         )
         return (
@@ -297,7 +293,7 @@ class TrailMakingTest extends Component {
                     }
                     else if(this.state.finished)
                     {
-                        return <p className="finish-message">{showText[this.state.setting.phase]+" 終わりました!"}</p>
+                        return <p className="finish-message">{"終わりました!"}</p>
                     }
                     return showedTable;
                     

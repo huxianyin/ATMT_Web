@@ -7,11 +7,11 @@ import Report from './components/Report'
 import {  BrowserRouter,Routes,Route } from 'react-router-dom';
 
 const save_dir = "../results/";
-const defaultParas = {
-    num: 5,
-    step: 10,
+const defaultSettings = {
+    num: 2,
+    step: 1,
     task_r: false,
-    exp_name: '1-1'
+    exp_name: 'hu'
 }
 
 
@@ -19,11 +19,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            phase:"setting",
             setting: {
-                num: defaultParas.num,
-                step: defaultParas.step,
-                task_r: defaultParas.task_r,
-                exp_name: defaultParas.exp_name
+                num: defaultSettings.num,
+                step: defaultSettings.step,
+                task_r: defaultSettings.task_r,
+                exp_name: defaultSettings.exp_name
             }
         };
 
@@ -38,7 +39,7 @@ class App extends Component {
 
 
     handleParameterChange(name, v) {
-        let { setting } = this.state;
+        let { phase,setting } = this.state;
         if (name === "task_r" || name === "exp_name") {
             setting[name] = v;
         } else {
@@ -59,28 +60,7 @@ class App extends Component {
         return header + body;
     }
 
-    handleNext(next) {
-        //this.setState({phase:next});
-        //browserHistory.push(next);
-        if (next === "trailA") {
-            var config = [{
-                num: this.state.setting.num,
-                step: this.state.setting.step,
-                task_r: this.state.setting.task_r
-            }];
-            var file_name = save_dir + "config_" + this.state.setting.exp_name + ".csv";
-            this.handleClearHistory(file_name);
-            this.handleSubmitResult(file_name, this.json2csv(config));
-        }
-    }
-
-    handleSubmitResult(file_name, data) {
-        //ipcRenderer.send('submit-result', { data: data, fname: file_name });
-    }
-
-    handleClearHistory(file_name) {
-        //ipcRenderer.send('clear-history', { fname: file_name });
-    }
+    
 
     quitApp() {
         // var ele_window = electron.remote.getCurrentWindow();
@@ -90,12 +70,15 @@ class App extends Component {
         //ipcRenderer.send('window-all-closed');
     }
 
-    generage_page(isTrial,taskType){
+    handleClearHistory(){}
+    handleSubmitResult(){}
+
+    generage_page(isTrial,taskType,nextPhase){
         const phase = (isTrial?"trial":"part" )+ taskType;
         return ( <TaskPage
             isTrial = {isTrial} 
             taskType = {taskType} 
-            handleNext = { this.handleNext.bind(this, phase) }
+            nextPhase = {nextPhase}//{ this.handleNext.bind(this, phase) }
             Reset = { this.reset }
             exp_name = { this.state.setting.exp_name }
             num = { this.state.setting.num }
@@ -110,24 +93,24 @@ class App extends Component {
     render() {
         const MySettingPage = (props) => {
             return ( <Setting 
-                num = { this.state.num }
-                step = { this.state.step }
-                task_r = { this.state.task_r }
-                exp_name = { this.state.exp_name }
-                handleNext = { this.handleNext.bind(this, "trailA") }
+                num = { this.state.setting.num }
+                step = { this.state.setting.step }
+                task_r = { this.state.setting.task_r }
+                exp_name = { this.state.setting.exp_name }
+                nextPhase = "trailA"
                 handleParamChange = { this.handleParameterChange.bind(this) }
                 Reset = { this.reset }
                 />
             );
         }
-        const TrailAPage = (props) => {return this.generage_page(true,'A');}
-        const PartAPage = (props) => {return this.generage_page(false,'A');}
-        const TrailBPage = (props) => {return this.generage_page(true,'B');}
-        const PartBPage = (props) => {return this.generage_page(false,'B');}
+        const TrailAPage = (props) => {return this.generage_page(true,'A',"../partA");}
+        const PartAPage = (props) => {return this.generage_page(false,'A',"../trialB");}
+        const TrailBPage = (props) => {return this.generage_page(true,'B',"../partB");}
+        const PartBPage = (props) => {return this.generage_page(false,'B',"../report");}
 
         const ReportPage = (props) => {
-            return ( <
-                Report id = "report"
+            return ( <Report 
+                id = "report"
                 Reset = { this.reset }
                 quitAPP = { this.quitApp }
                 exp_name = { this.state.setting.exp_name }
@@ -139,7 +122,6 @@ class App extends Component {
                 <BrowserRouter>
                     <Routes>
                         <Route exact path = "/" element = { <MySettingPage />}/> 
-                        <Route path = 'setting' element = { <MySettingPage /> }/>
                         <Route path = 'trailA' element = { <TrailAPage /> }/> 
                         <Route path = 'partA' element = { <PartAPage />}/> 
                         <Route path = 'trailB' element = { <TrailBPage />}/> 
