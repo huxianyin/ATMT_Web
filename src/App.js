@@ -1,17 +1,12 @@
 import React, {Component} from 'react';
 import './css/App.css';
 import Setting from './components/Setting'
-import TrailA from './components/TrailA'
-import PartA from './components/PartA'
-import TrailB from './components/TrailB'
-import PartB from './components/PartB'
+import TaskPage from './components/TaskPage';
 import Report from './components/Report'
 
 import {  BrowserRouter,Routes,Route } from 'react-router-dom';
-//const electron = window.require("electron");
-//const { ipcRenderer } = electron;
-const save_dir = "./results/";
 
+const save_dir = "../results/";
 const defaultParas = {
     num: 5,
     step: 10,
@@ -34,7 +29,7 @@ class App extends Component {
 
     }
     reset() {
-        if (window.confirm('resetすると、今までの成績は無くなります。本当にresetしますか？')) {
+        if (window.confirm('リセットすると、今までの成績は無くなります。本当にリセットしますか？')) {
             window.history.pushState(null, null, '/');
             window.location.reload();
 
@@ -95,6 +90,23 @@ class App extends Component {
         //ipcRenderer.send('window-all-closed');
     }
 
+    generage_page(isTrial,taskType){
+        const phase = (isTrial?"trial":"part" )+ taskType;
+        return ( <TaskPage
+            isTrial = {isTrial} 
+            taskType = {taskType} 
+            handleNext = { this.handleNext.bind(this, phase) }
+            Reset = { this.reset }
+            exp_name = { this.state.setting.exp_name }
+            num = { this.state.setting.num }
+            step = { this.state.setting.step }
+            task_r = { this.state.setting.task_r }
+            onClearHistory = { this.handleClearHistory.bind(this) }
+            onSubmitResult = { this.handleSubmitResult.bind(this) }
+            />
+        );
+    }
+
     render() {
         const MySettingPage = (props) => {
             return ( <Setting 
@@ -108,58 +120,10 @@ class App extends Component {
                 />
             );
         }
-
-        const TrailAPage = (props) => {
-            return ( <
-                TrailA handleNext = { this.handleNext.bind(this, "partA") }
-                Reset = { this.reset }
-                exp_name = { this.state.setting.exp_name }
-                task_r = { this.state.setting.task_r }
-                onClearHistory = { this.handleClearHistory.bind(this) }
-                onSubmitResult = { this.handleSubmitResult.bind(this) }
-                />
-            );
-        }
-
-        const PartAPage = (props) => {
-            return ( <
-                PartA handleNext = { this.handleNext.bind(this, "trailB") }
-                Reset = { this.reset }
-                exp_name = { this.state.setting.exp_name }
-                num = { this.state.setting.num }
-                task_r = { this.state.setting.task_r }
-                onClearHistory = { this.handleClearHistory.bind(this) }
-                onSubmitResult = { this.handleSubmitResult.bind(this) }
-                step = { this.state.setting.step }
-                />
-            );
-        }
-
-        const TrailBPage = (props) => {
-            return ( <
-                TrailB handleNext = { this.handleNext.bind(this, "partB") }
-                Reset = { this.reset }
-                exp_name = { this.state.setting.exp_name }
-                task_r = { this.state.setting.task_r }
-                onClearHistory = { this.handleClearHistory.bind(this) }
-                onSubmitResult = { this.handleSubmitResult.bind(this) }
-                />
-            );
-        }
-
-        const PartBPage = (props) => {
-            return ( <
-                PartB handleNext = { this.handleNext.bind(this, "report") }
-                Reset = { this.reset }
-                exp_name = { this.state.setting.exp_name }
-                num = { this.state.setting.num }
-                task_r = { this.state.setting.task_r }
-                onClearHistory = { this.handleClearHistory.bind(this) }
-                onSubmitResult = { this.handleSubmitResult.bind(this) }
-                step = { this.state.setting.step }
-                />
-            );
-        }
+        const TrailAPage = (props) => {return this.generage_page(true,'A');}
+        const PartAPage = (props) => {return this.generage_page(false,'A');}
+        const TrailBPage = (props) => {return this.generage_page(true,'B');}
+        const PartBPage = (props) => {return this.generage_page(false,'B');}
 
         const ReportPage = (props) => {
             return ( <
