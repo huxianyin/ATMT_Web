@@ -4,10 +4,6 @@ import '../css/tmtStyle.css';
 import CompleteBar from './CompleteBar';
 
 //move to app js because they are global settings!!
-const save_dir = "./results/";
-const trial_num = 3;
-const trial_step= 2;
-const alphabet = "jp";
 
 const jp = ["あ","い","う","え","お","か","き","く","け","こ","さ","し","す","せ","そ","た","ち","つ","て","と","な","に","ぬ","ね","の","は","ひ","ふ","へ","ほ","ま","み","む","め","も","や","ゆ","よ","ら","り","る","れ","ろ","わ","を","ん"];
 const en = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -26,13 +22,9 @@ class TrailMakingTest extends Component {
           posBlanck:[],
           nextAnswer : 0,
           lastTime : 0,
-          fname:  save_dir + "result_" + props.phase + "_"+ props.exp_name +".csv",
           setting : {
-            step: props.phase.includes('trial')?trial_step:props.step,
-            exp_name:props.exp_name,
-            phase:props.phase,
-            num: props.phase.includes('trial')?trial_num:props.num,
-            task_r:props.task_r,
+            step: props.phase.includes('trial')?props.trial_step:props.step,
+            num: props.phase.includes('trial')?props.trial_num:props.num,
           },
         };
       }
@@ -200,7 +192,7 @@ class TrailMakingTest extends Component {
 
             this.state.lastTime = timestamp;
             this.state.completeBar.setCompleteNumber(this.state.nextAnswer);
-            const newTable = this.generateMarks(this.state.setting.phase,this.state.nextAnswer,this.state.setting.task_r);
+            const newTable = this.generateMarks(this.props.phase,this.state.nextAnswer,this.props.task_r);
             this.setState({table:newTable});
         }
         else
@@ -218,23 +210,23 @@ class TrailMakingTest extends Component {
         this.state.nextAnswer = 0;
         this.state.lastTime = 0;
         this.state.started = false;
-        if(alphabet === "jp")
+        if(this.props.lang === "jp")
         {
             this.state.alphabet_array = jp;
         }
-        else if(alphabet === "en")
+        else if(this.props.lang === "en")
         {
             this.state.alphabet_array = en;
         }
         this.state.completeBar.setCompleteNumber(this.state.nextAnswer);
-        var real_num = this.state.setting.phase.includes('A') ? this.state.setting.num : this.state.setting.num*2;
-        var real_step = this.state.setting.phase.includes('A') ? this.state.setting.step : this.state.setting.step*2;
+        var real_num = this.props.phase.includes('A') ? this.state.setting.num : this.state.setting.num*2;
+        var real_step = this.props.phase.includes('A') ? this.state.setting.step : this.state.setting.step*2;
         this.state.completeBar.setNum(real_num);
         this.state.completeBar.setStep(real_step);
 
-        this.setState({table:this.generateMarks(this.state.setting.phase,this.state.nextAnswer,true)});
+        this.setState({table:this.generateMarks(this.props.phase,this.state.nextAnswer,true)});
 
-        this.props.onClearHistory(this.state.fname);
+        this.props.onClearHistory();
     }
 
     render(){

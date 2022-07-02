@@ -7,6 +7,10 @@ import Report from './components/Report'
 import {  BrowserRouter,Routes,Route } from 'react-router-dom';
 
 const save_dir = "../results/";
+const trial_num=2;
+const trial_step=1;
+const lang = "jp";
+
 const defaultSettings = {
     num: 2,
     step: 1,
@@ -88,6 +92,9 @@ class App extends Component {
             exp_name = { this.state.setting.exp_name }
             num = { this.state.setting.num }
             step = { this.state.setting.step }
+            trial_num = { trial_num }
+            trial_step = { trial_step }
+            lang = {lang}
             task_r = { this.state.setting.task_r }
             onClearHistory = { this.handleClearHistory.bind(this) }
             onUpdateResult = { this.onUpdateResult.bind(this) }

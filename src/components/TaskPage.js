@@ -44,6 +44,9 @@ const TaskPage = (props) => {
           exp_name={props.exp_name}
           num={props.num}
           step={props.step}
+          trial_num = { props.trial_num }
+          trial_step = { props.trial_step }
+          lang = {props.lang}
           task_r={props.task_r} 
           phase={phase}
           onClearHistory={props.onClearHistory}
