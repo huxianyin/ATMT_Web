@@ -225,8 +225,6 @@ class TrailMakingTest extends Component {
         this.state.completeBar.setStep(real_step);
 
         this.setState({table:this.generateMarks(this.props.phase,this.state.nextAnswer,true)});
-
-        this.props.onClearHistory();
     }
 
     render(){

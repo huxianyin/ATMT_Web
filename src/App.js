@@ -3,16 +3,15 @@ import './css/App.css';
 import Setting from './components/Setting'
 import TaskPage from './components/TaskPage';
 import Report from './components/Report'
-
 import {  BrowserRouter,Routes,Route } from 'react-router-dom';
 
 const save_dir = "../results/";
-const trial_num=2;
+const trial_num=1;
 const trial_step=1;
 const lang = "jp";
 
 const defaultSettings = {
-    num: 2,
+    num: 1,
     step: 1,
     task_r: false,
     exp_name: 'hu'
@@ -30,16 +29,14 @@ class App extends Component {
                 task_r: defaultSettings.task_r,
                 exp_name: defaultSettings.exp_name
             },
-            results:Array(Object),
+            results: Array(),
         };
 
     }
 
     reset() {
         if (window.confirm('リセットすると、今までの成績は無くなります。本当にリセットしますか？')) {
-            window.history.pushState(null, null, '/');
             window.location.reload();
-
         }
     }
 
@@ -53,30 +50,10 @@ class App extends Component {
         }
     }
 
-
-    json2csv(json) {
-        var header = Object.keys(json[0]).join(',') + "\n";
-
-        var body = json.map(function(d) {
-            return Object.keys(d).map(function(key) {
-                return d[key];
-            }).join(',');
-        }).join("\n");
-
-        return header + body;
-    }
-
     
-
     quitApp() {
-        // var ele_window = electron.remote.getCurrentWindow();
-        // ele_window.close();
-        // window.history.pushState(null, null, '/');
-        // window.location.reload();
-        //ipcRenderer.send('window-all-closed');
+         /* TODO */
     }
-
-    handleClearHistory(){}
 
     onUpdateResult(data)
     {
@@ -96,7 +73,6 @@ class App extends Component {
             trial_step = { trial_step }
             lang = {lang}
             task_r = { this.state.setting.task_r }
-            onClearHistory = { this.handleClearHistory.bind(this) }
             onUpdateResult = { this.onUpdateResult.bind(this) }
             />
         );
@@ -115,19 +91,18 @@ class App extends Component {
                 />
             );
         }
-        const TrailAPage = (props) => {return this.generage_page(true,'A',"../partA");}
+        const TrailAPage = (props) => {return this.generage_page(true,'A',"../report");}
         const PartAPage = (props) => {return this.generage_page(false,'A',"../trialB");}
         const TrailBPage = (props) => {return this.generage_page(true,'B',"../partB");}
         const PartBPage = (props) => {return this.generage_page(false,'B',"../report");}
-
+        
         const ReportPage = (props) => {
-            return ( <Report 
-                id = "report"
-                Reset = { this.reset }
-                quitAPP = { this.quitApp }
-                exp_name = { this.state.setting.exp_name }
+            return (<Report
+                data = {this.state.results}
+                setting = {this.state.setting}
+                save_dir = {save_dir}
                 />);
-            }
+        }
 
         return ( 
             <div>
