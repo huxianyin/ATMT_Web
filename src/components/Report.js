@@ -3,6 +3,9 @@ import LineChart from './LineChart';
 import {  Link } from 'react-router-dom';
 import '../css/Report.css';
 
+import DownloadIcon from '@mui/icons-material/Download';
+
+
 //const debug_data = [{"item_id":"0","timestamp":1656778994.663,"reaction_time":2.058000087738037,"phase":"trialB"},{"item_id":"1","timestamp":1656778996.594,"reaction_time":1.930999994277954,"phase":"trialB"},{"item_id":"2","timestamp":1656778997.209,"reaction_time":0.6150000095367432,"phase":"trialA"},{"item_id":"3","timestamp":1656778997.727,"reaction_time":0.5179998874664307,"phase":"trialA"},{"item_id":"4","timestamp":1656778999.35,"reaction_time":1.622999906539917,"phase":"trialA"},{"item_id":"5","timestamp":1656779000.608,"reaction_time":1.258000135421753,"phase":"trialA"},{"item_id":"6","timestamp":1656779001.416,"reaction_time":0.807999849319458,"phase":"trialA"},{"item_id":"7","timestamp":1656779002.109,"reaction_time":0.693000078201294,"phase":"trialA"},{"item_id":"8","timestamp":1656779002.987,"reaction_time":0.878000020980835,"phase":"trialA"},{"item_id":"9","timestamp":1656779003.736,"reaction_time":0.749000072479248,"phase":"trialA"}];
 
 
@@ -52,7 +55,10 @@ function Report (props) {
                 </div>
                 </div>
             <div className="button-container">
-                <button style={{"width":500,"marginLeft:":100}} className="my-btn" onClick={()=>download(save_path,results)}>  <a>Download Results </a></button>
+                <button style={{"width":500,"marginLeft:":100}} className="dl-btn" onClick={()=>download(save_path,results)}>  
+                    <a>Download Results </a>
+                    <DownloadIcon className='icon'/>
+                </button>
                 <button style={{"width":500,"marginLeft":100}} className="my-btn"> <Link to={props.nextPhase}>Try Again</Link></button>
             </div>
             </div>
