@@ -94,7 +94,8 @@ class App extends Component {
                 setting = { this.state.setting }
                 save_dir = { save_dir }
                 nextPhase = "/" /
-                > );
+                >
+            );
         }
 
         return ( <
@@ -107,24 +108,24 @@ class App extends Component {
             Route exact path = "/"
             element = { < MySettingPage / > }
             />  <
-            Route path = 'trialA'
+            Route path = '/trialA'
             element = { < TrailAPage / > }
             />  <
-            Route path = 'partA'
+            Route path = '/partA'
             element = { < PartAPage / > }
             />  <
-            Route path = 'trialB'
+            Route path = '/trialB'
             element = { < TrailBPage / > }
             />  <
-            Route path = 'partB'
+            Route path = '/partB'
             element = { < PartBPage / > }
             />  <
-            Route path = 'report'
+            Route path = '/report'
             element = { < ReportPage / > }
-            />  <
-            /Routes> <
-            /BrowserRouter> <
-            /div>
+            />  < /
+            Routes > <
+            /BrowserRouter> < /
+            div >
         );
     }
 }
