@@ -51,10 +51,6 @@ class App extends Component {
     }
 
     
-    quitApp() {
-         /* TODO */
-    }
-
     onUpdateResult(data)
     {
         this.state.results.push(data);
@@ -91,7 +87,7 @@ class App extends Component {
                 />
             );
         }
-        const TrailAPage = (props) => {return this.generage_page(true,'A',"../report");}
+        const TrailAPage = (props) => {return this.generage_page(true,'A',"../partA");}
         const PartAPage = (props) => {return this.generage_page(false,'A',"../trialB");}
         const TrailBPage = (props) => {return this.generage_page(true,'B',"../partB");}
         const PartBPage = (props) => {return this.generage_page(false,'B',"../report");}
@@ -101,6 +97,7 @@ class App extends Component {
                 data = {this.state.results}
                 setting = {this.state.setting}
                 save_dir = {save_dir}
+                nextPhase = "/"
                 />);
         }
 

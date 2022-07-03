@@ -1,6 +1,9 @@
 import React , {Component} from 'react';
+import LineChart from './LineChart';
+import {  Link } from 'react-router-dom';
+import '../css/Report.css';
 
-const debug_data = [{"item_id":"0","timestamp":1656778994.663,"reaction_time":2.058000087738037,"phase":"trialA"},{"item_id":"1","timestamp":1656778996.594,"reaction_time":1.930999994277954,"phase":"trialA"},{"item_id":"2","timestamp":1656778997.209,"reaction_time":0.6150000095367432,"phase":"trialA"},{"item_id":"3","timestamp":1656778997.727,"reaction_time":0.5179998874664307,"phase":"trialA"},{"item_id":"4","timestamp":1656778999.35,"reaction_time":1.622999906539917,"phase":"trialA"},{"item_id":"5","timestamp":1656779000.608,"reaction_time":1.258000135421753,"phase":"trialA"},{"item_id":"6","timestamp":1656779001.416,"reaction_time":0.807999849319458,"phase":"trialA"},{"item_id":"7","timestamp":1656779002.109,"reaction_time":0.693000078201294,"phase":"trialA"},{"item_id":"8","timestamp":1656779002.987,"reaction_time":0.878000020980835,"phase":"trialA"},{"item_id":"9","timestamp":1656779003.736,"reaction_time":0.749000072479248,"phase":"trialA"}];
+const debug_data = [{"item_id":"0","timestamp":1656778994.663,"reaction_time":2.058000087738037,"phase":"trialB"},{"item_id":"1","timestamp":1656778996.594,"reaction_time":1.930999994277954,"phase":"trialB"},{"item_id":"2","timestamp":1656778997.209,"reaction_time":0.6150000095367432,"phase":"trialA"},{"item_id":"3","timestamp":1656778997.727,"reaction_time":0.5179998874664307,"phase":"trialA"},{"item_id":"4","timestamp":1656778999.35,"reaction_time":1.622999906539917,"phase":"trialA"},{"item_id":"5","timestamp":1656779000.608,"reaction_time":1.258000135421753,"phase":"trialA"},{"item_id":"6","timestamp":1656779001.416,"reaction_time":0.807999849319458,"phase":"trialA"},{"item_id":"7","timestamp":1656779002.109,"reaction_time":0.693000078201294,"phase":"trialA"},{"item_id":"8","timestamp":1656779002.987,"reaction_time":0.878000020980835,"phase":"trialA"},{"item_id":"9","timestamp":1656779003.736,"reaction_time":0.749000072479248,"phase":"trialA"}];
 
 
 function json2csv(jsons) {
@@ -14,29 +17,46 @@ function json2csv(jsons) {
     return header + body;
 }
 
-
-class Report extends Component {
-    constructor(props){
-    super(props);
-    this.state={
-    }
+function download(save_path,result){
+    
+    const element = document.createElement("a");
+    const file = new Blob([result], {
+      type: "text/plain"
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = save_path;
+    document.body.appendChild(element);
+    element.click();
+    
   }
 
-  download(){
+function Report (props) { 
+    const save_path =  props.setting.exp_name+".csv";
+    const results="hello";
     //const result = JSON.stringify(this.props.setting)+"\n" + json2csv(this.props.data);
-    const result="test"
-    const save_path = this.props.save_dir + "/" + this.props.setting.exp_name+".csv";
-    console.log(save_path);
-  }
-
-    render(){ 
         return(
-            /* show result in charts using Chart.js */
-            <div>
-                <button onClick={this.download.bind(this)}> Download Results</button>
+            <div className='Report'>
+                <div className='container'>
+                    <div className='my-chart' >
+                        <LineChart data={props.data} x="timestamp" y="reaction_time" condition_label="phase"
+                        condition="partA"
+                        label="Part A"
+                        color="rgb(75, 192, 192)"/>
+                    </div>
+
+                    <div className='my-chart'>
+                        <LineChart data={props.data} x="timestamp" y="reaction_time" condition_label="phase"
+                        condition="partB"
+                        label="Part B"
+                        color="rgb(75, 100, 192)"/>
+                </div>
+                </div>
+            <div className="button-container">
+                <button style={{"width":500,"marginLeft:":100}} className="my-btn" onClick={()=>download(save_path,results)}>  <a>Download Results </a></button>
+                <button style={{"width":500,"marginLeft":100}} className="my-btn"> <Link to={props.nextPhase}>Try Again</Link></button>
+            </div>
             </div>
             );
-    }
 }
 
 

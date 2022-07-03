@@ -1,0 +1,26 @@
+.Report {
+    padding: 2% 2% 2% 2%;
+    text-align: center;
+    background-color: #333333;
+    height: 725px;
+}
+
+.container {
+    display: flex;
+    margin: 10px;
+}
+
+.my-chart {
+    margin: 10px;
+    width: 45vw;
+    height: 40vw;
+}
+
+.report-page {
+    text-align: center;
+    display: flex;
+}
+
+.button-container {
+    text-align: center;
+}

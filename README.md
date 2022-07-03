@@ -6,3 +6,4 @@
 
 # Prerequisites
  - npm install --save react-router-dom
+ - npm install --save react-chartjs-2
