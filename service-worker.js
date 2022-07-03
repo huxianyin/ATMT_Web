@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/ATMT_Web/precache-manifest.3c5906fe0406997622a984e25104ea26.js"
+  "/ATMT_Web/precache-manifest.4de07474e5c07612ddf5cd88d416584e.js"
 );
 
 workbox.clientsClaim();
