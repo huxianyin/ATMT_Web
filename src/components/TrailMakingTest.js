@@ -248,7 +248,7 @@ class TrailMakingTest extends Component {
 
         var showedNextButton = (
             <button className="nextPanel">
-                <Link className='disabled-link' to={this.props.nextPhase}>NEXT</Link>
+                <Link to={this.props.nextPhase}>NEXT</Link>
             </button>
         )
         return (

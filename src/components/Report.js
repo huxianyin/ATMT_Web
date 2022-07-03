@@ -53,7 +53,7 @@ function Report (props) {
                 </div>
             <div className="button-container">
                 <button style={{"width":500,"marginLeft:":100}} className="my-btn" onClick={()=>download(save_path,results)}>  <a>Download Results </a></button>
-                <button style={{"width":500,"marginLeft":100}} className="my-btn"> <Link className='disabled-link' to={props.nextPhase}>Try Again</Link></button>
+                <button style={{"width":500,"marginLeft":100}} className="my-btn"> <Link to={props.nextPhase}>Try Again</Link></button>
             </div>
             </div>
             );
