@@ -1,4 +1,4 @@
-import React , {Component} from 'react';
+import React from 'react';
 import LineChart from './LineChart';
 import {  Link } from 'react-router-dom';
 import '../css/Report.css';
@@ -7,9 +7,8 @@ import '../css/Report.css';
 
 
 function json2csv(jsons) {
-    var header = "settings\n";
-    header = header + Object.keys(jsons[0]).join(',') + "\n";
-    var body = jsons.map(function(d) {
+    const header = Object.keys(jsons[0]).join(',') + "\n";
+    const body = jsons.map(function(d) {
         return Object.keys(d).map(function(key) {
             return d[key];
         }).join(',');
@@ -39,14 +38,14 @@ function Report (props) {
             <div className='Report'>
                 <div className='chart-container'>
                     <div className='my-chart' >
-                        <LineChart data={data} x="timestamp" y="reaction_time" condition_label="phase"
+                        <LineChart data={data} x="item_id" y="reaction_time" condition_label="phase"
                         condition="partA"
                         label="Part A"
                         color="rgb(75, 192, 192)"/>
                     </div>
 
                     <div className='my-chart'>
-                        <LineChart data={data} x="timestamp" y="reaction_time" condition_label="phase"
+                        <LineChart data={data} x="item_id" y="reaction_time" condition_label="phase"
                         condition="partB"
                         label="Part B"
                         color="rgb(75, 100, 192)"/>

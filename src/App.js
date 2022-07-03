@@ -6,9 +6,9 @@ import Report from './components/Report'
 import {  BrowserRouter,Routes,Route } from 'react-router-dom';
 
 const save_dir = "../results/";
-const trial_num=5;
-const trial_step=5;
-const lang = "jp";
+const trial_num=1;
+const trial_step=1;
+const lang = "en";
 
 const defaultSettings = {
     num: 1,
