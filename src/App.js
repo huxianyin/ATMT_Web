@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './css/App.css';
 import Setting from './components/Setting'
 import TaskPage from './components/TaskPage';
 import Report from './components/Report'
-import {  BrowserRouter,Routes,Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 const save_dir = "../results/";
-const trial_num=1;
-const trial_step=1;
+const trial_num = 1;
+const trial_step = 1;
 const lang = "en";
 
 const defaultSettings = {
@@ -22,7 +22,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            phase:"setting",
+            phase: "setting",
             setting: {
                 num: defaultSettings.num,
                 step: defaultSettings.step,
@@ -50,24 +50,22 @@ class App extends Component {
         }
     }
 
-    
-    onUpdateResult(data)
-    {
+
+    onUpdateResult(data) {
         this.state.results.push(data);
     }
 
-    generage_page(isTrial,taskType,nextPhase){
-        return ( <TaskPage
-            isTrial = {isTrial} 
-            taskType = {taskType} 
-            nextPhase = {nextPhase}//{ this.handleNext.bind(this, phase) }
+    generage_page(isTrial, taskType, nextPhase) {
+        return ( < TaskPage isTrial = { isTrial }
+            taskType = { taskType }
+            nextPhase = { nextPhase } //{ this.handleNext.bind(this, phase) }
             Reset = { this.reset }
             exp_name = { this.state.setting.exp_name }
             num = { this.state.setting.num }
             step = { this.state.setting.step }
             trial_num = { trial_num }
             trial_step = { trial_step }
-            lang = {lang}
+            lang = { lang }
             task_r = { this.state.setting.task_r }
             onUpdateResult = { this.onUpdateResult.bind(this) }
             />
@@ -76,8 +74,7 @@ class App extends Component {
 
     render() {
         const MySettingPage = (props) => {
-            return ( <Setting 
-                num = { this.state.setting.num }
+            return ( < Setting num = { this.state.setting.num }
                 step = { this.state.setting.step }
                 task_r = { this.state.setting.task_r }
                 exp_name = { this.state.setting.exp_name }
@@ -87,36 +84,50 @@ class App extends Component {
                 />
             );
         }
-        const TrailAPage = (props) => {return this.generage_page(true,'A',"../partA");}
-        const PartAPage = (props) => {return this.generage_page(false,'A',"../trialB");}
-        const TrailBPage = (props) => {return this.generage_page(true,'B',"../partB");}
-        const PartBPage = (props) => {return this.generage_page(false,'B',"../report");}
-        
+        const TrailAPage = (props) => { return this.generage_page(true, 'A', "../partA"); }
+        const PartAPage = (props) => { return this.generage_page(false, 'A', "../trialB"); }
+        const TrailBPage = (props) => { return this.generage_page(true, 'B', "../partB"); }
+        const PartBPage = (props) => { return this.generage_page(false, 'B', "../report"); }
+
         const ReportPage = (props) => {
-            return (<Report
-                data = {this.state.results}
-                setting = {this.state.setting}
-                save_dir = {save_dir}
-                nextPhase = "/"
-                />);
+            return ( < Report data = { this.state.results }
+                setting = { this.state.setting }
+                save_dir = { save_dir }
+                nextPhase = "/" /
+                > );
         }
 
-        return ( 
-            <div>
-                <BrowserRouter>
-                    <Routes>
-                        <Route exact path = "/" element = { <MySettingPage />}/> 
-                        <Route path = 'trialA' element = { <TrailAPage /> }/> 
-                        <Route path = 'partA' element = { <PartAPage />}/> 
-                        <Route path = 'trialB' element = { <TrailBPage />}/> 
-                        <Route path = 'partB' element = { <PartBPage />}/> 
-                        <Route path = 'report' element = { <ReportPage />}/> 
-                    </Routes>
-                </BrowserRouter>
-            </div>
+        return ( <
+            div >
+            <
+            BrowserRouter basename = '/index.html' >
+            <
+            Routes >
+            <
+            Route exact path = "/"
+            element = { < MySettingPage / > }
+            />  <
+            Route path = 'trialA'
+            element = { < TrailAPage / > }
+            />  <
+            Route path = 'partA'
+            element = { < PartAPage / > }
+            />  <
+            Route path = 'trialB'
+            element = { < TrailBPage / > }
+            />  <
+            Route path = 'partB'
+            element = { < PartBPage / > }
+            />  <
+            Route path = 'report'
+            element = { < ReportPage / > }
+            />  <
+            /Routes> <
+            /BrowserRouter> <
+            /div>
         );
-        }
     }
+}
 
 
 export default App;
