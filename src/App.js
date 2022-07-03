@@ -78,16 +78,16 @@ class App extends Component {
                 step = { this.state.setting.step }
                 task_r = { this.state.setting.task_r }
                 exp_name = { this.state.setting.exp_name }
-                nextPhase = "trialA"
+                nextPhase = "/trialA"
                 handleParamChange = { this.handleParameterChange.bind(this) }
                 Reset = { this.reset }
                 />
             );
         }
-        const TrailAPage = (props) => { return this.generage_page(true, 'A', "../partA"); }
-        const PartAPage = (props) => { return this.generage_page(false, 'A', "../trialB"); }
-        const TrailBPage = (props) => { return this.generage_page(true, 'B', "../partB"); }
-        const PartBPage = (props) => { return this.generage_page(false, 'B', "../report"); }
+        const TrailAPage = (props) => { return this.generage_page(true, 'A', "/partA"); }
+        const PartAPage = (props) => { return this.generage_page(false, 'A', "/trialB"); }
+        const TrailBPage = (props) => { return this.generage_page(true, 'B', "/partB"); }
+        const PartBPage = (props) => { return this.generage_page(false, 'B', "/report"); }
 
         const ReportPage = (props) => {
             return ( < Report data = { this.state.results }
@@ -101,7 +101,7 @@ class App extends Component {
         return ( <
             div >
             <
-            BrowserRouter basename = '/index.html' >
+            BrowserRouter basename = '/' >
             <
             Routes >
             <
