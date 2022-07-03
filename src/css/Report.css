@@ -5,7 +5,7 @@
     height: 725px;
 }
 
-.container {
+.chart-container {
     display: flex;
     margin: 10px;
 }

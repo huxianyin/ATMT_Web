@@ -67,7 +67,7 @@ const Setting = (props) => {
           </div>
         </div>
         <button className="my-btn" >
-         <Link to={props.nextPhase}>Next</Link>
+         <Link className='disabled-link' to={props.nextPhase}>Next</Link>
          </button>
         
       </div>
