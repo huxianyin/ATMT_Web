@@ -1,6 +1,6 @@
 # ATMT Web Application
 
-# React Version
+# Prerequisites
 - react : 18.2.0
 - react-dom : 18.2.0
 - react-chartjs-2
