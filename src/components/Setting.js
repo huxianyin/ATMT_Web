@@ -12,7 +12,6 @@ const Setting = (props) => {
     return (
       <div className="Setting">
         <header>
-        <button className="reset-btn" onClick={()=>{props.Reset();}}>Reset</button>
           <h1 className="h1-text">ATMT</h1>
           <h2 className="h1-text">~Advanced Trail Making Test~</h2>
         </header>
@@ -23,6 +22,7 @@ const Setting = (props) => {
             <div className="param-label">{"Experiment Name"}</div>
             <div className="param-label">{"Num "+"("+min_num+"-"+max_num+")"}</div>
             <div className="param-label">{"Step "+"("+min_step+"-"+max_step+")"}</div>
+            <div className="param-label">Language</div>
             <div className="param-label">Task-R</div>
           </div>
 
@@ -56,6 +56,17 @@ const Setting = (props) => {
               </div>
 
               <div className="param-input">
+                  <select className="input-area" defaultValue={props.lang} onChange={
+                    (v) =>{
+                      props.handleParamChange("lang",
+                      v.target.value==="English"?"en":"jp");
+                    }}>
+                      <option>Japanese</option>
+                      <option>English</option>
+                    </select>
+              </div>
+
+              <div className="param-input">
                 <label className="myCheckbox">
                     <input type="checkbox" defaultChecked={props.task_r} onChange={
                       (v) =>{
@@ -64,6 +75,7 @@ const Setting = (props) => {
                     <span className="checkmark"></span>
                 </label>
               </div>
+              
           </div>
         </div>
         <button className="my-btn" >

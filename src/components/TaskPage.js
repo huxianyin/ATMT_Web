@@ -1,6 +1,7 @@
 import React from 'react';
 import TrailMakingTest from './TrailMakingTest'
 import '../css/tmtStyle.css';
+import {Link} from 'react-router-dom'
 
 const RULE_TEXT={
   "trialA":<p>今から，検査Aのための練習をします。画面に書かれている数字の<span>『1－2－3』</span>というような順番にできるだけ早く押してください。練習の成績は最後の成績に記入しません。練習は終わったら、本番の課題に進めます。</p>,
@@ -32,7 +33,9 @@ const TaskPage = (props) => {
 
     return (
       <div className="container">
-          <button className="reset-btn" onClick={()=>{props.Reset();}}>Reset</button>
+          <button className="reset-btn" onClick={()=>{props.Reset();}}>
+            <Link to = "/">Reset</Link>
+          </button>
           <h3>{ title } </h3>
           <div className="container">
             <div className="box26">

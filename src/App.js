@@ -5,16 +5,15 @@ import TaskPage from './components/TaskPage';
 import Report from './components/Report'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-const save_dir = "../results/";
 const trial_num = 1;
 const trial_step = 1;
-const lang = "en";
 
 const defaultSettings = {
     num: 1,
     step: 1,
     task_r: false,
-    exp_name: 'hu'
+    exp_name: 'test',
+    'lang': "jp"
 }
 
 
@@ -27,7 +26,8 @@ class App extends Component {
                 num: defaultSettings.num,
                 step: defaultSettings.step,
                 task_r: defaultSettings.task_r,
-                exp_name: defaultSettings.exp_name
+                exp_name: defaultSettings.exp_name,
+                lang: defaultSettings.lang
             },
             results: Array(),
         };
@@ -43,11 +43,12 @@ class App extends Component {
 
     handleParameterChange(name, v) {
         const setting = this.state.setting;
-        if (name === "task_r" || name === "exp_name") {
+        if (name === "task_r" || name === "exp_name" || name === "lang") {
             setting[name] = v;
         } else {
             setting[name] = parseFloat(v);
         }
+        console.log(this.state.setting);
     }
 
 
@@ -65,7 +66,7 @@ class App extends Component {
             step = { this.state.setting.step }
             trial_num = { trial_num }
             trial_step = { trial_step }
-            lang = { lang }
+            lang = { this.state.setting.lang }
             task_r = { this.state.setting.task_r }
             onUpdateResult = { this.onUpdateResult.bind(this) }
             />
@@ -92,40 +93,24 @@ class App extends Component {
         const ReportPage = (props) => {
             return ( < Report data = { this.state.results }
                 setting = { this.state.setting }
-                save_dir = { save_dir }
                 nextPhase = "/" /
                 >
             );
         }
 
-        return ( <
-            div >
-            <
-            BrowserRouter basename = '/' >
-            <
-            Routes >
-            <
-            Route exact path = "/"
-            element = { < MySettingPage / > }
-            />  <
-            Route path = '/trialA'
-            element = { < TrailAPage / > }
-            />  <
-            Route path = '/partA'
-            element = { < PartAPage / > }
-            />  <
-            Route path = '/trialB'
-            element = { < TrailBPage / > }
-            />  <
-            Route path = '/partB'
-            element = { < PartBPage / > }
-            />  <
-            Route path = '/report'
-            element = { < ReportPage / > }
-            />  < /
-            Routes > <
-            /BrowserRouter> < /
-            div >
+        return ( 
+        <div >
+            <BrowserRouter basename = '/' >
+                <Routes >
+                    <Route exact path = "/" element = { < MySettingPage / > }/>  
+                    <Route path = '/trialA' element = { < TrailAPage / > }/>  
+                    <Route path = '/partA' element = { < PartAPage / > }/>  
+                    <Route path = '/trialB' element = { < TrailBPage / > }/>  
+                    <Route path = '/partB' element = { < PartBPage / > }/>  
+                    <Route path = '/report' element = { < ReportPage / > }/>  
+                </Routes> 
+            </BrowserRouter> 
+        </div>
         );
     }
 }

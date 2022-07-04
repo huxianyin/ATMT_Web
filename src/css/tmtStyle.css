@@ -57,6 +57,15 @@ h3 {
     text-shadow: ntwo;
 }
 
+.reset-btn a {
+    text-decoration: none;
+    color: #333;
+}
+
+.reset-btn a:hover {
+    color: #eee !important;
+}
+
 .startPannel {
     position: relative;
     width: 100%;

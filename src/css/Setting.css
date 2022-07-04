@@ -2,7 +2,11 @@
     padding: 2% 2% 2% 2%;
     text-align: center;
     background-color: #333333;
-    height: 725px;
+    height: 100%;
+}
+
+.h1-text {
+    font-size: 28px;
 }
 
 .reset-btn {
@@ -37,17 +41,16 @@
 
 .param-label {
     position: relative;
-    font-size: 30px;
+    font-size: 26px;
     color: #eeeeee;
     text-align: right;
-    line-height: 100px;
+    line-height: 300%;
     margin-right: 2%;
 }
 
 .param-input {
     text-align: left;
-    line-height: 100px;
-    font-size: 30px;
+    line-height: 490%;
     color: #eeeeee;
     margin-left: 2%;
 }
@@ -56,7 +59,7 @@
     color: aliceblue;
     border: 2px solid #eeeeee;
     background-color: #333333;
-    font-size: 28px;
+    font-size: 20px;
     width: 60%;
     height: 100%;
     text-align: center;
@@ -73,7 +76,7 @@
     -ms-user-select: none;
     user-select: none;
     margin-left: 26%;
-    margin-top: 3%;
+    margin-bottom: 1%;
 }
 
 
